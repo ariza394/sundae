@@ -13,17 +13,20 @@ export default function Options({optionType}){
     const [error,setError] = useState(false);
     const [orderDetails,updateItemCount] = useOrderDetails();
 
-    useEffect(() =>{
-        axios.get(`http://localhost:3030/${optionType}`)
-        .then(response => setItems(response.data))
-        .catch(error => setError(true));
-    },[optionType]);
-
-    if (error){
-        return <AlertBanner />
-    }
-    const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
-    const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
+    useEffect(() => {
+        axios
+          .get(`http://localhost:3030/${optionType}`)
+          .then((response) => setItems(response.data))
+          .catch((error) => setError(true));
+      }, [optionType]);
+    
+      if (error) {
+        // @ts-ignore
+        return <AlertBanner />;
+      }
+    
+      const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
+      const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
     const optionItems = items.map((item) => (
         <ItemComponent
@@ -40,7 +43,9 @@ export default function Options({optionType}){
         <>
             <h2>{title}</h2>
             <p>{pricePerItem[optionType]} each</p>
-            <p>{title} total: {orderDetails.totals[optionType]}</p>
+            <p>
+                {title} total: {orderDetails.totals[optionType]}
+            </p>
             <Row>{optionItems}</Row>
         </>
     );

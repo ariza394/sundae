@@ -23,6 +23,7 @@ export default function ScoopOptions({ name, imagePath, updateItemCount }) {
           {name}
         </Form.Label>
         <Col xs="5" style={{ textAlign: 'left' }}>
+          hdsafdsafsf
           <Form.Control
             type="number"
             defaultValue={0}
